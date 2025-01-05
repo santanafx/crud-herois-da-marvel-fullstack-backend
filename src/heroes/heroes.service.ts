@@ -25,7 +25,7 @@ export class HeroesService {
     const heroes = await this.heroModel.find().exec();
     return heroes.map((hero) => ({
       ...hero.toObject(),
-      image: `https://crud-herois-da-marvel-fullstack-backend-jvdgmmq23.vercel.app/${hero.image}`,
+      image: `https://crud-herois-da-marvel-backend-01.vercel.app/${hero.image}`,
     }));
   }
 
