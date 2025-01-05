@@ -9,11 +9,6 @@ import { Hero, HeroDocument } from './entities/hero.entity';
 export class HeroesService {
   constructor(@InjectModel(Hero.name) private heroModel: Model<HeroDocument>) {}
 
-  // create(createHeroDto: CreateHeroDto) {
-  //   const hero = new this.heroModel(createHeroDto);
-  //   return hero.save();
-  // }
-
   async create(
     createHeroDto: CreateHeroDto,
     file: Express.Multer.File,
@@ -30,7 +25,7 @@ export class HeroesService {
     const heroes = await this.heroModel.find().exec();
     return heroes.map((hero) => ({
       ...hero.toObject(),
-      image: `http://localhost:3000/${hero.image}`,
+      image: `https://crud-herois-da-marvel-fullstack-backend-jvdgmmq23.vercel.app/${hero.image}`,
     }));
   }
 
