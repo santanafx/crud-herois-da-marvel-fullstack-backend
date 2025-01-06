@@ -13,9 +13,6 @@ export class Hero {
 
   @Prop()
   origin: string;
-
-  @Prop()
-  image: string;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);

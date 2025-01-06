@@ -6,11 +6,7 @@ import {
   Param,
   Post,
   Put,
-  UploadedFile,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 import { CreateHeroDto } from './dto/create-hero.dto';
 import { UpdateHeroDto } from './dto/update-hero.dto';
 import { HeroesService } from './heroes.service';
@@ -20,22 +16,8 @@ export class HeroesController {
   constructor(private readonly heroesService: HeroesService) {}
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const filename: string = file.originalname;
-          cb(null, filename);
-        },
-      }),
-    }),
-  )
-  create(
-    @Body() createHeroDto: CreateHeroDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    return this.heroesService.create(createHeroDto, file);
+  create(@Body() createHeroDto: CreateHeroDto) {
+    return this.heroesService.create(createHeroDto);
   }
 
   @Get()

@@ -9,14 +9,9 @@ import { Hero, HeroDocument } from './entities/hero.entity';
 export class HeroesService {
   constructor(@InjectModel(Hero.name) private heroModel: Model<HeroDocument>) {}
 
-  async create(
-    createHeroDto: CreateHeroDto,
-    file: Express.Multer.File,
-  ): Promise<Hero> {
-    const imagePath = file.path;
+  async create(createHeroDto: CreateHeroDto): Promise<Hero> {
     const createdHero = new this.heroModel({
       ...createHeroDto,
-      image: imagePath,
     });
     return createdHero.save();
   }
@@ -25,7 +20,6 @@ export class HeroesService {
     const heroes = await this.heroModel.find().exec();
     return heroes.map((hero) => ({
       ...hero.toObject(),
-      image: `https://crud-herois-da-marvel-backend-01-khfilaod1-santanafxs-projects.vercel.app/${hero.image}`,
     }));
   }
 
